@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <style>
+      /* Center the labels horizontally and vertically */
+      .label-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      /* Style the labels */
+      .label {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #333;
+        color: white;
+        margin: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      /* Change background color on hover */
+      .label:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="label-container">
+      <a href="{% url 'image-to-pdf'%}">
+        <div class="label">
+          image to pdf converter
+        </div>
+      </a>
+      <a href="{% url 'excel-to-pdf'%}">
+        <div class="label">
+          excel to pdf converter
+        </div>
+      </a>
+      <a href="{% url 'word-to-pdf'%}">
+        <div class="label">
+          word to pdf converter
+        </div>
+      </a>
+      <a href="{% url 'powerpoint-to-pdf'%}">
+        <div class="label">
+          powerpoint to pdf converter
+        </div>
+      </a>
+    </div>
+  </body>
+</html>

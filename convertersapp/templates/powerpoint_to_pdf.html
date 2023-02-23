@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload Form</title>
+  </head>
+  <body>
+    <h1>Upload an PowerPoint</h1>
+    <form  method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+      <label for="PowerPoint">Choose an PowerPoint to upload:</label>
+      <input type="file" id="PowerPoint" name="PowerPoint">
+      <br>
+      <input type="submit" value="Convert Now">
+    </form>
+  </body>
+</html>

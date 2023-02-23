@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload Form</title>
+  </head>
+  <body>
+    <h1>Upload an Excel</h1>
+    <form  method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+      <label for="Excel">Choose an Excel to upload:</label>
+      <input type="file" id="excel" name="excel">
+      <br>
+      <input type="submit" value="Convert Now">
+    </form>
+  </body>
+</html>

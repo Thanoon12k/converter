@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload Form</title>
+  </head>
+  <body>
+    <h1>Upload an Word</h1>
+    <form  action="{% url 'word-to-pdf' %}"   method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+      <label for="Word">Choose an Word to upload:</label>
+      <input type="file" name="word">
+      <br>
+      <input type="submit" value="Convert Now">
+    </form>
+  </body>
+</html>
