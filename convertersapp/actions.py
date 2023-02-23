@@ -2,7 +2,7 @@ import comtypes.client
 from django.core.files.storage import FileSystemStorage
 import os
 from PIL import Image
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404,FileResponse
 from django.shortcuts import render
 
                                        
@@ -42,14 +42,18 @@ def image_to_pdf(request):
     fs = FileSystemStorage()
     filename = fs.save('temp/image_to_pdf/'+file.name, file)
     image_path = os.path.join(fs.location, filename)  
-    output_path = image_path[:-3] + 'pdf'
-    return output_path
-    if os.path.exists(output_path):
-        with open(output_path, 'rb') as pdf_file:
-            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="output.pdf"'
-            return response
-    
+    pdf_path = image_path[:-3] + 'pdf'
+
+    image = Image.open(image_path)
+    pdf_bytes = img2pdf.convert(image.filename)
+    file = open(pdf_path, "wb")
+    file.write(pdf_bytes)
+    image.close()
+    file.close()
+    with open(pdf_path, 'rb') as pdf_file:
+        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="output.pdf"'
+        return response     
 def ppt_to_pdf(request):
     comtypes.CoInitialize()
     fs = FileSystemStorage()
@@ -63,7 +67,6 @@ def ppt_to_pdf(request):
     filename = fs.save('temp/ppt_to_pdf/'+file.name, file)
     ppt_path = os.path.join(fs.location, filename)
     pdf_path=ppt_path[:-4] + 'pdf'
-    
 
     powerpoint = win32.Dispatch('Powerpoint.Application')
     powerpoint.Visible = True
@@ -72,11 +75,10 @@ def ppt_to_pdf(request):
     ppt.Close()
     powerpoint.Quit()
 
-    if os.path.exists(pdf_path):
-        with open(pdf_path, 'rb') as pdf_file:
-            response = HttpResponse(pdf_file.read(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="output.pdf"'
-            return response
+    with open(pdf_path, 'rb') as pdf_file:
+        response = HttpResponse(pdf_file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="output.pdf"'
+        return response
     
 def excel_to_pdf(request):
     comtypes.CoInitialize()
